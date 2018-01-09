@@ -6,17 +6,17 @@ Try it out at https://ftfy.now.sh/
 
 The tool outputs Python code to fix the input text, for example:
 
-    s = 'Iggy Pop (nÃƒÂ© Jim Osterberg)'
-    s = s.encode('sloppy-windows-1252')
-    s = s.decode('utf-8')
+    s = "He's Justinâ\x9d¤"
     s = s.encode('latin-1')
     s = s.decode('utf-8')
+    print(s)
 
-In some cases it will output additional functions, for example:
+In some cases it will output additional imports from the ftfy package, for example:
 
-    s = "Direzione Pd, ok â\x80\x9csenza modifiche\x94 all'Italicum."
-    s = s.encode('latin-1')
-    s = s.decode('windows-1252')
-    s = fix_partial_utf8_punct_in_1252(s)
-
-The implementation of those functions can be found [in the python-ftfy/fixes.py module](https://github.com/LuminosoInsight/python-ftfy/blob/bdc6f2211195e70ce38b52fefa522a007b04406e/ftfy/fixes.py#L581).
+    import ftfy.bad_codecs  # enables sloppy- codecs
+    from ftfy.fixes import restore_byte_a0
+    s = 'It was namedÂ â€žscarsÂ´ stonesâ€ś after the rock-climbers who got hurt while climbing on it.'
+    s = s.encode('sloppy-windows-1250')
+    s = restore_byte_a0(s)
+    s = s.decode('utf-8')
+    print(s)
