@@ -1,6 +1,6 @@
 # ftfy-web
 
-A simple web wrapper around [Rob Speer](https://twitter.com/r_speer)'s [FTFY Python library](https://github.com/LuminosoInsight/python-ftfy). Paste in some broken unicode text and it will tell you how to fix it!
+A simple web wrapper around [Robyn Speer](https://twitter.com/r_speer)'s [FTFY Python library](https://github.com/LuminosoInsight/python-ftfy). Paste in some broken unicode text and it will tell you how to fix it!
 
 Try it out at https://ftfy.now.sh/
 
