@@ -1,0 +1,15 @@
+{
+    "version": 2,
+    "builds": [
+        {
+            "src": "ftfy_app.py",
+            "use": "@now/python"
+        }
+    ],
+    "routes": [
+        {
+            "src": "(.*)",
+            "dest": "ftfy_app.py"
+        }
+    ]
+}
