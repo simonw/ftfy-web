@@ -1,5 +1,5 @@
 from starlette.applications import Starlette
-from starlette.responses import Response
+from starlette.responses import HTMLResponse
 from starlette.routing import Route
 from html import escape
 import json
@@ -107,7 +107,7 @@ async def homepage(request):
     if s:
         s = s[0].strip()
         fixed, steps = fix_encoding_and_explain(s)
-        return Response(
+        return HTMLResponse(
             INDEX.format(
                 output="<textarea>{}</textarea>".format(escape(fixed)),
                 steps=escape(steps_to_python(s, steps)),
@@ -116,7 +116,7 @@ async def homepage(request):
             )
         )
     else:
-        return Response(
+        return HTMLResponse(
             INDEX.format(output="", s="", steps="", examples="\n".join(examples),)
         )
 
