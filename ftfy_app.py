@@ -1,5 +1,6 @@
-from sanic import Sanic
-from sanic import response
+from starlette.applications import Starlette
+from starlette.responses import Response
+from starlette.routing import Route
 from html import escape
 import json
 from urllib.parse import urlencode
@@ -78,9 +79,6 @@ for example in EXAMPLES:
 examples.append("</ul>")
 
 
-app = Sanic(__name__)
-
-
 def steps_to_python(s, steps):
     python = ["s = {}".format(repr(s))]
     lines = []
@@ -104,13 +102,12 @@ def steps_to_python(s, steps):
     return "\n".join(python + lines + ["print(s)"])
 
 
-@app.route("/")
-async def handle_request(request):
-    s = request.args.getlist("s")
+async def homepage(request):
+    s = request.query_params.getlist("s")
     if s:
         s = s[0].strip()
         fixed, steps = fix_encoding_and_explain(s)
-        return response.html(
+        return Response(
             INDEX.format(
                 output="<textarea>{}</textarea>".format(escape(fixed)),
                 steps=escape(steps_to_python(s, steps)),
@@ -119,10 +116,9 @@ async def handle_request(request):
             )
         )
     else:
-        return response.html(
+        return Response(
             INDEX.format(output="", s="", steps="", examples="\n".join(examples),)
         )
 
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8006)
+app = Starlette(debug=True, routes=[Route("/", homepage),])

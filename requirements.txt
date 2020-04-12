@@ -1,2 +1,2 @@
-sanic~=19.0
 ftfy==5.2.0
+starlette==0.13.2
