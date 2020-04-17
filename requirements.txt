@@ -1,2 +1,2 @@
-ftfy==5.2.0
+ftfy~=5.7
 starlette==0.13.2
